@@ -1,9 +1,5 @@
-import random
-import itertools
+from common import *
 
-X_TOKEN = "X" # PLAYER TOKEN
-O_TOKEN = "O" # COMPUTER TOKEN
-NULL_TOKEN = " "
 ROW_COUNT = 3
 COLUMN_COUNT = 3
 CELL_COUNT = ROW_COUNT * COLUMN_COUNT

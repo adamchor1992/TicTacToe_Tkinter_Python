@@ -1,5 +1,5 @@
-from Tic_Tac_Toe_Common_Logic import *
-
+from TicTacToe_Logic import TicTacToe_Common_Logic as logic
+import itertools
 
 ROW_COUNT = 5
 COLUMN_COUNT = 5
@@ -7,18 +7,17 @@ COLUMN_COUNT = 5
 game_board_size = ROW_COUNT * COLUMN_COUNT
 
 if game_board_size == 9:
-    check_win = check_win_3x3
+    check_win = logic.check_win_3x3
 elif game_board_size == 25:
-    check_win = check_win_5x5
+    check_win = logic.check_win_5x5
 else:
-    assert false, "Invalid game board"
+    assert False, "Invalid game board"
 
 
-class Game():
+class Game:
     def __init__(self):
-        self._game_board = create_game_board(ROW_COUNT, COLUMN_COUNT)
+        self._game_board = logic.create_game_board(ROW_COUNT, COLUMN_COUNT)
         self._players = itertools.cycle(["Player", "Computer"])
-
 
     def _player_move(self):
         """Processes player move based on the current game board state
@@ -31,10 +30,9 @@ class Game():
         """
 
         cell_coordinates = self._player_get_next_move()
-        mark_cell(self._game_board, X_TOKEN, cell_coordinates)
+        logic.mark_cell(self._game_board, logic.X_TOKEN, cell_coordinates)
 
         return cell_coordinates
-
 
     def _congratulate_winner(self, token):
         """Prints congratulations pointing out victorious token
@@ -47,7 +45,6 @@ class Game():
         """
 
         print("====================================================== TOKEN {} WINS ======================================================".format(token))
-
 
     def _process_and_validate_coordinates(self, input_coordinates):
         """Converts input string to 2-element tuple of coordinates if the string is valid
@@ -86,7 +83,6 @@ class Game():
 
         return (coordinate_x, coordinate_y)
 
-
     def _player_get_next_move(self):
         """Gets input coordinates from player, processes it and checks if the cell is available. 
             It does not return until proper coordinates have been typed
@@ -108,12 +104,11 @@ class Game():
             if cell_coordinates == None:
                 continue
             else:
-                if cell_coordinates in get_empty_cells_coordinates(self._game_board):
+                if cell_coordinates in logic.get_empty_cells_coordinates(self._game_board):
                     return cell_coordinates
                 else:
                     print("Chosen cell is not available, try again\n")
                     continue
-
 
     def _game_turn(self):
         """Function managing whole round consisting of multiple game turns. Returns when turn is over
@@ -129,7 +124,7 @@ class Game():
             self._player_move()
             print("PLAYER MOVE")
         else:
-            computer_move(self._game_board)
+            logic.computer_move(self._game_board)
             print("COMPUTER MOVE")
     
         self.display_game_board()
@@ -142,7 +137,6 @@ class Game():
         else:
             return None
 
-
     def game_round(self):
         """Function managing whole round consisting of multiple game turns. Returns when round is over
 
@@ -153,12 +147,11 @@ class Game():
             None
         """
 
-        while get_empty_cells_coordinates(self._game_board):
+        while logic.get_empty_cells_coordinates(self._game_board):
             if self._game_turn() != None:
                 return
         else:
             print("TIE, No more valid moves available")
-
 
     def display_game_board(self):
         """Displays game board in a text-based way
@@ -188,7 +181,6 @@ class Game():
 
         print()
 
-
     def restart_game(self):
         """Restarts game by reseting game board
 
@@ -199,8 +191,7 @@ class Game():
             None
         """
 
-        reset_game_board(self._game_board)
-
+        logic.reset_game_board(self._game_board)
 
     def user_restart_game_dialog(self):
         """Asks user if the game shall be restarted
