@@ -1,6 +1,6 @@
 import unittest
-from common import *
-from TicTacToe_Logic import TicTacToe_Common_Logic as logic
+from game import logic
+from game.common import *
 
 ROW_COUNT = 3
 COLUMN_COUNT = 3
@@ -14,24 +14,24 @@ class GameBoardTests(unittest.TestCase):
         self.assertEqual(len(self.game_board), 9)
 
         for cell_coordinates in self.game_board:
-            self.assertEqual(self.game_board[cell_coordinates], logic.NULL_TOKEN)
+            self.assertEqual(self.game_board[cell_coordinates], NULL_TOKEN)
 
     def test_function_reset_game_board(self):
-        self.game_board[(1,1)] = logic.X_TOKEN
-        self.game_board[(2,2)] = logic.X_TOKEN
-        self.game_board[(3,3)] = logic.X_TOKEN
+        self.game_board[(1,1)] = X_TOKEN
+        self.game_board[(2,2)] = X_TOKEN
+        self.game_board[(3,3)] = X_TOKEN
 
         logic.reset_game_board(self.game_board)
 
-        self.assertEqual(self.game_board[(1,1)], NULL_TOKEN)
-        self.assertEqual(self.game_board[(1,2)], NULL_TOKEN)
-        self.assertEqual(self.game_board[(1,3)], NULL_TOKEN)
-        self.assertEqual(self.game_board[(2,1)], NULL_TOKEN)
-        self.assertEqual(self.game_board[(2,2)], NULL_TOKEN)
-        self.assertEqual(self.game_board[(2,3)], NULL_TOKEN)
-        self.assertEqual(self.game_board[(3,1)], NULL_TOKEN)
-        self.assertEqual(self.game_board[(3,2)], NULL_TOKEN)
-        self.assertEqual(self.game_board[(3,3)], NULL_TOKEN)
+        self.assertEqual(self.game_board[(1, 1)], NULL_TOKEN)
+        self.assertEqual(self.game_board[(1, 2)], NULL_TOKEN)
+        self.assertEqual(self.game_board[(1, 3)], NULL_TOKEN)
+        self.assertEqual(self.game_board[(2, 1)], NULL_TOKEN)
+        self.assertEqual(self.game_board[(2, 2)], NULL_TOKEN)
+        self.assertEqual(self.game_board[(2, 3)], NULL_TOKEN)
+        self.assertEqual(self.game_board[(3, 1)], NULL_TOKEN)
+        self.assertEqual(self.game_board[(3, 2)], NULL_TOKEN)
+        self.assertEqual(self.game_board[(3, 3)], NULL_TOKEN)
 
     def test_function_get_empty_cells_coordinates_all_cells_empty(self):
         self.assertEqual(len(logic.get_empty_cells_coordinates(self.game_board)), 9)

@@ -1,4 +1,4 @@
-from common import *
+from game.common import *
 
 ROW_COUNT = 3
 COLUMN_COUNT = 3
@@ -9,16 +9,19 @@ def create_game_board(row_count, column_count):
     """Creates new game board in form of tuple:string dictionary  {(x,y):TOKEN}
     
     Args: 
-        None
+        row_count: Number of rows
+        column_count: Number of columns
 
     Returns:
         Dictionary representing game board
     """
 
     game_board = {}
+
     for row in range(1, row_count + 1):
         for column in range(1, column_count + 1):
             game_board[(row, column)] = NULL_TOKEN
+
     return game_board
 
 
@@ -86,21 +89,21 @@ def check_win_3x3(game_board):
     tokens = (X_TOKEN, O_TOKEN)
 
     for token in tokens:
-        if game_board[(1,1)] == token and game_board[(1,2)] == token and game_board[(1,3)] == token:
+        if game_board[(1, 1)] == token and game_board[(1, 2)] == token and game_board[(1, 3)] == token:
             return token
-        elif game_board[(2,1)] == token and game_board[2,2] == token and game_board[2,3] == token:
+        elif game_board[(2, 1)] == token and game_board[2, 2] == token and game_board[2, 3] == token:
             return token
-        elif game_board[(3,1)] == token and game_board[(3,2)] == token and game_board[(3,3)] == token:
+        elif game_board[(3, 1)] == token and game_board[(3, 2)] == token and game_board[(3, 3)] == token:
             return token
-        elif game_board[(1,1)] == token and game_board[(2,1)] == token and game_board[(3,1)] == token:
+        elif game_board[(1, 1)] == token and game_board[(2, 1)] == token and game_board[(3, 1)] == token:
             return token
-        elif game_board[(1,2)] == token and game_board[(2,2)] == token and game_board[(3,2)] == token:
+        elif game_board[(1, 2)] == token and game_board[(2, 2)] == token and game_board[(3, 2)] == token:
             return token
-        elif game_board[(1,3)] == token and game_board[(2,3)] == token and game_board[(3,3)] == token:
+        elif game_board[(1, 3)] == token and game_board[(2, 3)] == token and game_board[(3, 3)] == token:
             return token
-        elif game_board[(1,1)] == token and game_board[(2,2)] == token and game_board[(3,3)] == token:
+        elif game_board[(1, 1)] == token and game_board[(2, 2)] == token and game_board[(3, 3)] == token:
             return token
-        elif game_board[(1,3)] == token and game_board[(2,2)] == token and game_board[(3,1)] == token:
+        elif game_board[(1, 3)] == token and game_board[(2, 2)] == token and game_board[(3, 1)] == token:
             return token
 
     return None
@@ -237,9 +240,10 @@ def computer_calculate_next_move(game_board):
             return cell_coordinates
         else:
             cell_coordinates = check_next_best_move(game_board)
-            
+
             if cell_coordinates:
-                print("Option C - choosing non-winning and non-blocking lose best move: ({x},{y})".format(x=cell_coordinates[0], y=cell_coordinates[1]))
+                print("Option C - choosing non-winning and non-blocking lose best move: ({x},{y})"
+                      .format(x=cell_coordinates[0], y=cell_coordinates[1]))
                 return cell_coordinates
             else:
                 assert False, print("================= NO MOVE CHOSEN - CRITICAL ERROR =================")
@@ -263,7 +267,7 @@ def check_win_possible_in_next_move(game_board):
     elif game_board_size == 25:
         check_win = check_win_5x5
     else:
-        assert false, "Invalid game board size"
+        assert False, "Invalid game board size"
 
     for cell_coordinates in get_empty_cells_coordinates(game_board):
         game_board_copy = game_board.copy()
@@ -293,7 +297,7 @@ def check_lose_possible_in_next_move(game_board):
     elif game_board_size == 25:
         check_win = check_win_5x5
     else:
-        assert false, "Invalid game board size"
+        assert False, "Invalid game board size"
 
     for cell_coordinates in get_empty_cells_coordinates(game_board):
         game_board_copy = game_board.copy()
@@ -318,12 +322,12 @@ def check_next_best_move(game_board):
 
     # First select middle cell, then corners and then other cells. It is crucial that this list 
     # contains all possible cells coordinates and it must not contain duplicates
-    move_priorities_3x3 = [(2,2), (1,1), (1,3), (3,1), (3,3), (2,1), (1,2), (3,2), (2,3)]
+    move_priorities_3x3 = [(2, 2), (1, 1), (1, 3), (3, 1), (3, 3), (2, 1), (1, 2), (3, 2), (2, 3)]
 
-    move_priorities_5x5 = [(3,3), # 8 options
-                          (2,2), (2,4), (4,2), (4,4), (2,3), (3,2), (3,4), (4,3), # 6 options 
-                          (1,2), (1,4), (2,1), (2,5), (4,1), (4,5), (5,2), (5,4), # 4 options
-                          (1,1), (1,3), (1,5), (3,1), (3,5), (5,1), (5,3), (5,5),] # 3 options
+    move_priorities_5x5 = [(3, 3),  # 8 options
+                           (2, 2), (2, 4), (4, 2), (4, 4), (2, 3), (3, 2), (3, 4), (4, 3),  # 6 options
+                           (1, 2), (1, 4), (2, 1), (2, 5), (4, 1), (4, 5), (5, 2), (5, 4),  # 4 options
+                           (1, 1), (1, 3), (1, 5), (3, 1), (3, 5), (5, 1), (5, 3), (5, 5), ]  # 3 options
 
     game_board_size = len(game_board)
 
@@ -332,12 +336,13 @@ def check_next_best_move(game_board):
     elif game_board_size == 25:
         move_priorities = move_priorities_5x5
     else:
-        assert false, "Invalid game board size"
+        assert False, "Invalid game board size"
 
-    if search_for_duplicates(move_priorities) == True:
+    if search_for_duplicates(move_priorities):
         raise ValueError("Duplicates not allowed")
 
-    assert len(move_priorities) == game_board_size, "List of move priorities must contain all possible cells coordinates, no more and no less"
+    assert len(move_priorities) == game_board_size, \
+        "List of move priorities must contain exactly all possible cells coordinates"
 
     empty_cells_coordinates = get_empty_cells_coordinates(game_board)
 

@@ -1,4 +1,4 @@
-from TicTacToe_Logic import TicTacToe_Common_Logic as logic
+import logic as logic
 import itertools
 
 ROW_COUNT = 5
@@ -21,9 +21,6 @@ class Game:
 
     def _player_move(self):
         """Processes player move based on the current game board state
-        
-        Args:
-            None
 
         Returns:
             Tuple representing cell coordinates
@@ -44,7 +41,7 @@ class Game:
             None
         """
 
-        print("====================================================== TOKEN {} WINS ======================================================".format(token))
+        print("========================== TOKEN {} WINS ==========================".format(token))
 
     def _process_and_validate_coordinates(self, input_coordinates):
         """Converts input string to 2-element tuple of coordinates if the string is valid
@@ -148,7 +145,7 @@ class Game:
         """
 
         while logic.get_empty_cells_coordinates(self._game_board):
-            if self._game_turn() != None:
+            if self._game_turn() is not None:
                 return
         else:
             print("TIE, No more valid moves available")
@@ -196,19 +193,13 @@ class Game:
     def user_restart_game_dialog(self):
         """Asks user if the game shall be restarted
 
-        Args:
-            None
-
         Returns:
             True if user wishes to restart game, False otherwise
         """
 
         user_input = input("Type anything to continue, Type quit to exit program: ")
         
-        if user_input == "quit":
-            return False
-        else:
-            return True
+        return user_input != "quit"
     
 
 def main():
@@ -219,7 +210,7 @@ def main():
 
         game.game_round()
 
-        if game.user_restart_game_dialog() == True:
+        if game.user_restart_game_dialog():
             game.restart_game()
         else:
             break

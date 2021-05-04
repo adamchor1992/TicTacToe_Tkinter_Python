@@ -1,6 +1,6 @@
 import tkinter as tk
 import tkinter.messagebox
-from TicTacToe_Logic import TicTacToe_Common_Logic as logic
+import logic as logic
 from common import *
 import PIL.Image
 import PIL.ImageTk
@@ -54,7 +54,7 @@ class TicTacToeGameGui(tk.Frame):
         """Builds game graphical user interface
 
         Args:
-            None
+            self
 
         Returns:
             None
@@ -99,9 +99,6 @@ class TicTacToeGameGui(tk.Frame):
 
     def _refresh_gui(self):
         """Refreshes graphical interface by setting each button text according to game board state
-        
-        Args:
-            None
 
         Returns:
             None
@@ -117,9 +114,6 @@ class TicTacToeGameGui(tk.Frame):
 
     def restart_game(self):
         """Restarts game which effectively means resetting game board and activating again all cells
-        
-        Args:
-            None
 
         Returns:
             None
@@ -146,9 +140,6 @@ class TicTacToeGameGui(tk.Frame):
     def game_round(self):
         """Method managing whole round consisting of multiple game turns. Returns when round is over
 
-        Args:
-            None
-
         Returns:
             None
         """
@@ -160,9 +151,6 @@ class TicTacToeGameGui(tk.Frame):
 
     def _game_turn(self):
         """Method managing whole round consisting of multiple game turns. Returns when turn is over
-    
-        Args:
-            None
 
         Returns:
             None
