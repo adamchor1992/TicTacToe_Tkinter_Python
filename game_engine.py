@@ -1,6 +1,6 @@
 import tkinter as tk
 import tkinter.messagebox
-import logic as logic
+import game_logic as logic
 from common import *
 import PIL.Image
 import PIL.ImageTk
@@ -74,28 +74,28 @@ class TicTacToeGameGui(tk.Frame):
         self.cell_buttons = {}
 
         for cell_coordinates in self._game_board:
-            self.cell_buttons[cell_coordinates] = tk.Button(self, 
+            self.cell_buttons[cell_coordinates] = tk.Button(self,
                                                             width=button_width,
                                                             height=button_height,
                                                             image=self.empty_cell_image,
                                                             borderwidth=0,
                                                             command=partial(self._cell_clicked, cell_coordinates))
 
-            self.cell_buttons[cell_coordinates].grid(row=cell_coordinates[0]-1, column=cell_coordinates[1]-1)
+            self.cell_buttons[cell_coordinates].grid(row=cell_coordinates[0] - 1, column=cell_coordinates[1] - 1)
 
-        self.restart_button = tk.Button(self, 
-                                        text="Restart", 
+        self.restart_button = tk.Button(self,
+                                        text="Restart",
                                         fg="black",
                                         command=self.restart_game)
 
         self.restart_button.grid(row=ROW_COUNT, column=0, columnspan=COLUMN_COUNT)
 
-        self.quit_button = tk.Button(self, 
-                                     text="Quit", 
+        self.quit_button = tk.Button(self,
+                                     text="Quit",
                                      fg="red",
                                      command=self._master.destroy)
-        
-        self.quit_button.grid(row=ROW_COUNT+1, column=0, columnspan=COLUMN_COUNT)
+
+        self.quit_button.grid(row=ROW_COUNT + 1, column=0, columnspan=COLUMN_COUNT)
 
     def _refresh_gui(self):
         """Refreshes graphical interface by setting each button text according to game board state
@@ -125,7 +125,8 @@ class TicTacToeGameGui(tk.Frame):
 
         self._refresh_gui()
 
-    def _congratulate_winner(self, token):
+    @staticmethod
+    def _congratulate_winner(token):
         """Prints congratulations pointing out victorious token
 
         Args:
@@ -159,14 +160,14 @@ class TicTacToeGameGui(tk.Frame):
             self._master.wait_variable(self._empty_cell_click_flag)
             print("PLAYER MOVE")
         else:
-            computer_cell_coordinates = logic.computer_move(self._game_board)
+            logic.computer_move(self._game_board)
 
             print("COMPUTER MOVE")
-    
+
         self._refresh_gui()
 
         winning_token = check_win(self._game_board)
-    
+
         if winning_token:
             self._congratulate_winner(winning_token)
             return winning_token
@@ -183,7 +184,7 @@ def main():
     while True:
         game.game_round()
         game.restart_game()
-    
+
 
 if __name__ == "__main__":
     main()
