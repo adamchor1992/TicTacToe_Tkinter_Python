@@ -20,7 +20,7 @@ def create_game_board(row_count, column_count):
 
     for row in range(1, row_count + 1):
         for column in range(1, column_count + 1):
-            game_board[(row, column)] = NULL_TOKEN
+            game_board[(row, column)] = NULL_CELL
 
     return game_board
 
@@ -36,7 +36,7 @@ def reset_game_board(game_board):
     """
 
     for cell_coordinates in game_board:
-        game_board[cell_coordinates] = NULL_TOKEN
+        game_board[cell_coordinates] = NULL_CELL
 
 
 def get_empty_cells_coordinates(game_board):
@@ -52,7 +52,7 @@ def get_empty_cells_coordinates(game_board):
     empty_cells_coordinates = []
 
     for cells_coordinates in game_board:
-        if game_board[cells_coordinates] == NULL_TOKEN:
+        if game_board[cells_coordinates] == NULL_CELL:
             empty_cells_coordinates.append(cells_coordinates)
 
     return empty_cells_coordinates
