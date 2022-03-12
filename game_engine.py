@@ -11,18 +11,6 @@ import itertools
 
 import tkinter.simpledialog
 
-# ROW_COUNT = 5
-# COLUMN_COUNT = 5
-
-#game_board_size = ROW_COUNT * COLUMN_COUNT
-
-# if game_board_size == 9:
-#     check_win = logic.check_win_3x3
-# elif game_board_size == 25:
-#     check_win = logic.check_win_5x5
-# else:
-#     assert False, "Invalid game board"
-
 
 class Menu(tk.Frame):
     def __init__(self, master):
@@ -36,42 +24,25 @@ class Menu(tk.Frame):
         self.selected_month = tk.StringVar()
 
         self.combobox = ttk.Combobox(self._master,
-                                     # width=5,
-                                     # height=5,
                                      justify="center",
                                      textvariable=self.selected_month,
                                      state="readonly")
         self.combobox["values"] = values
         self.combobox.current(0)
 
-        button_width = 5
-        button_height = 5
-
         self.ok_button = tk.Button(self._master,
                                    text="OK",
-                                   # width=5,
-                                   # height=5,
-                                   # borderwidth=0,
                                    command=self.ok)
 
         self.close_button = tk.Button(self._master,
                                       text="CLOSE",
-                                      # width=5,
-                                      # height=5,
-                                      # borderwidth=0,
                                       command=exit)
 
         self.combobox.grid(row=0, column=0)
         self.ok_button.grid(row=1, column=0)
         self.close_button.grid(row=2, column=0)
 
-    #        self.combobox.pack()  # fill='x', padx=5, pady=5)
-    #        self.ok_button.pack()
-    #        self.close_button.pack()
-
     def ok(self):
-        print("OK clicked with value {}".format(self.combobox.get()))
-
         self.gameboard_size = self.combobox.get()
 
         self.combobox.destroy()
@@ -94,8 +65,6 @@ class TicTacToeGameGui(tk.Frame):
         self.row_count = self.gameboard_size[0]
         self.column_count = self.gameboard_size[1]
 
-#        print("GAMEBOARD SIZE={} and {}".format(gameboard_size[0], gameboard_size[1]))
-
         gameboard_size = self.row_count * self.column_count
 
         if gameboard_size == 9:
@@ -103,7 +72,7 @@ class TicTacToeGameGui(tk.Frame):
         elif gameboard_size == 25:
             self.check_win = logic.check_win_5x5
         else:
-            assert False, "Invalid game board"
+            raise Exception("Invalid game board")
 
         self._game_board = logic.create_game_board(self.row_count, self.column_count)
 
@@ -122,8 +91,6 @@ class TicTacToeGameGui(tk.Frame):
         Returns:
             None
         """
-
-        print("Cell clicked: {}".format(cell_coordinates))
 
         if cell_coordinates in logic.get_empty_cells_coordinates(self._game_board):
             self._empty_cell_click_flag.set(True)
@@ -237,11 +204,8 @@ class TicTacToeGameGui(tk.Frame):
         """
         if next(self._players) == "Player":
             self._master.wait_variable(self._empty_cell_click_flag)
-            print("PLAYER MOVE")
         else:
             logic.computer_move(self._game_board)
-
-            print("COMPUTER MOVE")
 
         self._refresh_gui()
 
