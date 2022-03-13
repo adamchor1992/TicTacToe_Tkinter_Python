@@ -12,3 +12,5 @@ Run\
 **game_engine.py** \
 \
 using Python 3 interpreter.
+
+Next choose gameboard size and click OK.
